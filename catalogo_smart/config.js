@@ -13,6 +13,6 @@
  * protegerse con RLS (Row Level Security) y políticas de acceso.
  */
 window.CATALOGO_CONFIG = Object.freeze({
-  SUPABASE_URL: "https://nubiiafxuwaqtwkpikly.supabase.co/rest/v1/",
+  SUPABASE_URL: "https://nubiiafxuwaqtwkpikly.supabase.co",
   SUPABASE_PUBLISHABLE_KEY: "sb_publishable_D4pK3JZWghBuIApQKhQ4qA_59mYcEMD"
 });

@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f6f1">
+  <meta name="description" content="Catálogo Smart: descubre prendas y accesorios de tu tienda de ropa en Santa Cruz de la Sierra, Bolivia.">
+  <title>Catálogo Smart — Viste a tu manera</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f6f1;
+      --panel: #ffffff;
+      --ink: #202824;
+      --muted: #737c75;
+      --dark: #1f473e;
+      --dark-deep: #15342e;
+      --lime: #dce8ad;
+      --orange: #e88b6b;
+      --border: #e7e8df;
+      --shadow: 0 14px 42px rgba(28, 50, 39, .065);
+      --radius: 24px;
+      font-synthesis: none;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; min-width: 320px; background: var(--bg); color: var(--ink); font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+    button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible { outline: 3px solid #86ad7e; outline-offset: 3px; }
+    a { color: inherit; text-decoration: none; }
+    svg { display: block; }
+    .shell { width: min(1192px, calc(100% - 48px)); margin-inline: auto; }
+    .site-header { border-bottom: 1px solid rgba(34, 50, 42, .08); background: rgba(247, 246, 241, .93); }
+    .header-inner { min-height: 88px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: inline-flex; align-items: center; gap: 12px; font-weight: 850; letter-spacing: -.8px; font-size: 20px; white-space: nowrap; }
+    .brand-mark { width: 43px; height: 43px; border-radius: 14px; background: var(--dark); color: #fff; display: grid; place-items: center; font-family: Georgia, serif; font-size: 23px; font-style: italic; letter-spacing: -2px; padding-right: 2px; }
+    .brand span span { color: var(--dark); }
+    .header-right { display: flex; gap: 30px; align-items: center; }
+    .main-nav { display: flex; gap: 28px; font-size: 13px; color: #55665c; font-weight: 700; }
+    .main-nav a:hover { color: var(--dark); }
+    .location-pill { padding: 11px 14px; border: 1px solid #dce3d8; border-radius: 100px; font-size: 12px; font-weight: 700; color: var(--dark); display: inline-flex; gap: 7px; align-items: center; background: #fbfcf8; white-space: nowrap; }
+    .location-pill .dot { width: 7px; height: 7px; background: #7ba17b; border-radius: 50%; }
+    .hero { padding-top: 38px; }
+    .hero-card { min-height: 414px; display: grid; grid-template-columns: 1.12fr .88fr; overflow: hidden; border-radius: 29px; background: #e7ede1; isolation: isolate; position: relative; }
+    .hero-text { padding: 53px 30px 48px 58px; position: relative; z-index: 1; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; font-size: 11px; font-weight: 850; letter-spacing: .17em; text-transform: uppercase; color: #456454; }
+    .eyebrow:before { content: ""; width: 25px; height: 2px; background: #7fa183; }
+    .hero h1 { margin: 24px 0 18px; max-width: 620px; font-family: Georgia, "Times New Roman", serif; font-weight: 400; font-size: clamp(42px, 5.2vw, 69px); letter-spacing: -.057em; line-height: 1.05; color: #173a32; }
+    .hero h1 em { font-weight: 400; color: #a66b58; }
+    .hero-copy { max-width: 450px; font-size: 15px; color: #546d61; line-height: 1.75; margin: 0 0 29px; }
+    .hero-link { display: inline-flex; align-items: center; justify-content: center; gap: 14px; background: var(--dark); color: #fff; padding: 15px 19px; border-radius: 100px; font-size: 13px; font-weight: 750; transition: transform .2s, background .2s; }
+    .hero-link:hover { background: var(--dark-deep); transform: translateY(-2px); }
+    .hero-art { position: relative; min-height: 400px; }
+    .art-circle { position: absolute; width: 460px; height: 460px; border-radius: 50%; background: #cfdfc1; top: 32px; right: -42px; }
+    .art-outline { position: absolute; border: 1px solid rgba(250, 254, 244, .64); border-radius: 50%; width: 335px; height: 335px; right: 24px; top: 92px; }
+    .art-card { position: absolute; width: 210px; height: 268px; top: 78px; left: 10%; background: #f7e9dc; border: 8px solid rgba(255, 255, 255, .93); box-shadow: 0 16px 35px rgba(57, 73, 50, .12); border-radius: 130px 130px 20px 20px; transform: rotate(-12deg); display: grid; place-items: center; font-size: 104px; }
+    .art-card-secondary { position: absolute; width: 188px; height: 252px; top: 113px; right: 10%; background: #8eaaa1; border: 8px solid #fff; border-radius: 110px 110px 20px 20px; box-shadow: 0 20px 40px rgba(57, 73, 50, .16); transform: rotate(12deg); display: grid; place-items: center; font-size: 93px; }
+    .art-sticker { position: absolute; z-index: 2; top: 35px; right: 19px; width: 94px; height: 94px; border-radius: 50%; background: #f4f1df; color: #486352; border: 1px dashed #98aa88; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; transform: rotate(13deg); font-family: Georgia, serif; font-size: 14px; font-style: italic; box-shadow: var(--shadow); }
+    .art-sticker b { font-family: system-ui, sans-serif; font-size: 10px; text-transform: uppercase; letter-spacing: .12em; font-style: normal; }
+    .benefits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding-block: 21px 43px; }
+    .benefit { display: flex; align-items: center; justify-content: center; gap: 12px; font-weight: 700; font-size: 12px; color: #5b6c60; }
+    .benefit-icon { display: grid; place-items: center; color: #446a55; }
+    .catalog-section { padding-bottom: 90px; }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 22px; }
+    .kicker { font-size: 11px; font-weight: 900; letter-spacing: .17em; color: #849484; text-transform: uppercase; margin-bottom: 8px; }
+    .section-head h2 { font-family: Georgia, serif; font-size: clamp(33px, 3.5vw, 46px); font-weight: 400; letter-spacing: -.05em; margin: 0; color: #213d33; }
+    .count-bubble { background: #e5ecdb; color: #45674f; border-radius: 100px; font-weight: 750; font-size: 12px; padding: 10px 15px; white-space: nowrap; margin-bottom: 4px; }
+    .notice { display: none; align-items: flex-start; gap: 13px; border: 1px solid #dddaca; background: #fffcf1; border-radius: 16px; padding: 17px 19px; color: #6a603e; margin: 0 0 22px; font-size: 13px; line-height: 1.55; }
+    .notice.visible { display: flex; }
+    .notice-icon { flex: 0 0 auto; margin-top: 2px; }
+    .notice strong { display: block; color: #564d2d; margin-bottom: 2px; }
+    .notice code { padding: 1px 4px; border-radius: 4px; background: rgba(106, 96, 62, .08); font-size: .95em; overflow-wrap: anywhere; }
+    .filter-panel { padding: 20px; background: #fff; border: 1px solid #edf0e9; box-shadow: 0 10px 30px rgba(39, 53, 41, .025); border-radius: 21px; }
+    .filter-top { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(160px, .7fr) minmax(170px, .7fr); gap: 13px; }
+    .field { display: block; min-width: 0; }
+    .field-title { display: block; margin-bottom: 9px; font-size: 11px; text-transform: uppercase; letter-spacing: .09em; font-weight: 850; color: #718176; }
+    .input-wrap { position: relative; }
+    .input-wrap svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #91a094; pointer-events: none; }
+    .field input, .field select { display: block; height: 49px; width: 100%; border: 1px solid #e6e9e3; background: #fafbf8; color: #263d32; border-radius: 11px; padding: 0 14px; outline: none; transition: border-color .15s, background .15s; font-size: 13px; }
+    .field input::placeholder { color: #a1ada3; }
+    .field select { appearance: none; padding-right: 32px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%237f8e82' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; }
+    .field input:focus, .field select:focus { border-color: #97b29d; background: #fff; }
+    #search { padding-left: 43px; }
+    .filter-bottom { display: flex; align-items: center; flex-wrap: wrap; gap: 15px; justify-content: space-between; margin-top: 17px; padding-top: 15px; border-top: 1px solid #eff0ec; }
+    .price-fields { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+    .price-caption { font-size: 12px; font-weight: 750; color: #6e7c70; margin-right: 3px; }
+    .price-box { display: flex; align-items: center; gap: 7px; border: 1px solid #e6e9e3; border-radius: 9px; padding: 0 11px; height: 39px; background: #fafbf8; }
+    .price-box span { font-size: 12px; font-weight: 750; color: #829083; }
+    .price-box input { width: 87px; background: transparent; outline: 0; border: 0; min-width: 0; color: #263d32; font-size: 13px; }
+    .price-box input::placeholder { color: #a1ada3; }
+    .price-separator { color: #a0ada3; }
+    .clear-button { display: inline-flex; align-items: center; gap: 7px; background: none; border: none; color: #577663; font-size: 12px; font-weight: 800; padding: 8px; border-radius: 6px; }
+    .clear-button:hover { background: #f0f5ee; }
+    .results-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 26px 0 16px; }
+    .results-text { font-size: 13px; color: #727f74; }
+    .results-text strong { color: #274b3b; }
+    .reload-button { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 800; padding: 8px 11px; border: 1px solid #dce5d9; color: #4a7358; background: transparent; border-radius: 9px; }
+    .reload-button:hover { background: #ebf2e8; }
+    .reload-button:disabled { opacity: .55; cursor: wait; }
+    .products-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 21px; }
+    .product-card { background: var(--panel); border: 1px solid #edf0e9; border-radius: 18px; overflow: hidden; min-width: 0; transition: transform .25s, box-shadow .25s; }
+    .product-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .product-art { height: 220px; display: grid; place-items: center; position: relative; overflow: hidden; background: var(--product-color, #e3e8df); isolation: isolate; }
+    .product-art::before { position: absolute; content: ""; width: 210px; height: 210px; background: rgba(255, 255, 255, .28); border-radius: 50%; top: 20px; left: 50%; transform: translateX(-50%); }
+    .product-art::after { position: absolute; content: ""; width: 310px; height: 110px; border: 1px solid rgba(255,255,255,.5); border-radius: 50%; transform: rotate(-30deg); }
+    .product-emoji { position: relative; z-index: 1; font-size: 91px; filter: drop-shadow(0 13px 13px rgba(46, 56, 45, .1)); transition: transform .3s; }
+    .product-card:hover .product-emoji { transform: translateY(-4px) rotate(-3deg); }
+    .product-tag { position: absolute; top: 14px; left: 14px; z-index: 2; background: rgba(255,255,255,.87); color: #476756; border-radius: 50px; font-size: 10px; font-weight: 800; padding: 7px 11px; max-width: calc(100% - 28px); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+    .product-body { padding: 22px 21px 23px; }
+    .product-name { margin: 0 0 9px; font-family: Georgia, serif; font-size: 23px; line-height: 1.22; font-weight: 400; letter-spacing: -.035em; color: #213a30; overflow-wrap: anywhere; }
+    .product-description { margin: 0; min-height: 43px; font-size: 12px; line-height: 1.65; color: #78877b; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; overflow: hidden; overflow-wrap: anywhere; }
+    .product-bottom { display: flex; justify-content: space-between; align-items: end; gap: 10px; border-top: 1px solid #eff1ec; margin-top: 20px; padding-top: 18px; }
+    .price-label { display: block; color: #8a968c; font-size: 10px; font-weight: 750; letter-spacing: .04em; text-transform: uppercase; margin-bottom: 5px; }
+    .product-price { font-size: 21px; color: #224f3b; font-weight: 850; white-space: nowrap; letter-spacing: -.035em; }
+    .available-pill { border-radius: 100px; background: #eff5e7; padding: 7px 9px; white-space: nowrap; font-size: 10px; font-weight: 800; color: #65825d; }
+    .message-card { grid-column: 1 / -1; text-align: center; border: 1px dashed #cfdaca; border-radius: 20px; padding: 62px 24px; background: rgba(255,255,255,.72); }
+    .message-icon { font-size: 37px; line-height: 1; margin-bottom: 14px; }
+    .message-card h3 { font-family: Georgia, serif; font-size: 27px; font-weight: 400; margin: 0 0 10px; }
+    .message-card p { color: #718174; font-size: 13px; max-width: 475px; line-height: 1.6; margin: auto; }
+    .skeleton { overflow: hidden; border-radius: 18px; background: #fff; border: 1px solid #edf0e9; }
+    .skeleton-art { height: 220px; background: #e5e9e0; }
+    .skeleton-body { padding: 22px; }
+    .skeleton-line { height: 13px; background: #e9ede8; margin-bottom: 15px; border-radius: 50px; }
+    .skeleton-line.wide { width: 82%; height: 18px; }
+    .skeleton-line.short { width: 53%; }
+    .skeleton-art, .skeleton-line { animation: pulse 1.25s ease-in-out infinite alternate; }
+    @keyframes pulse { from { opacity: .55; } to { opacity: 1; } }
+    .footer { border-top: 1px solid #e4e7df; }
+    .footer-inner { padding-block: 29px 38px; display: flex; justify-content: space-between; gap: 20px; font-size: 12px; color: #859185; line-height: 1.6; }
+    .footer-inner strong { color: #4c6954; }
+    @media (max-width: 1000px) {
+      .hero h1 { font-size: clamp(40px, 5.5vw, 60px); }
+      .hero-text { padding-left: 38px; }
+      .art-card { left: 1%; }
+      .art-card-secondary { right: 3%; }
+      .products-grid { gap: 16px; }
+    }
+    @media (max-width: 800px) {
+      .hero-card { grid-template-columns: 1fr; }
+      .hero-text { padding: 42px 38px 5px; }
+      .hero h1 { max-width: 660px; }
+      .hero-art { min-height: 265px; }
+      .art-circle { width: 390px; height: 390px; top: -45px; right: 14%; }
+      .art-outline { top: 3px; right: 24%; }
+      .art-card { height: 208px; width: 162px; top: 25px; left: 25%; font-size: 76px; }
+      .art-card-secondary { height: 208px; width: 162px; top: 35px; right: 24%; font-size: 77px; }
+      .art-sticker { right: 17%; top: 16px; }
+      .filter-top { grid-template-columns: 1fr 1fr; }
+      .search-field { grid-column: 1/-1; }
+      .products-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .benefit { font-size: 11px; }
+    }
+    @media (max-width: 580px) {
+      .shell { width: min(100% - 28px, 1192px); }
+      .header-inner { min-height: 76px; }
+      .brand { font-size: 17px; }
+      .brand-mark { width: 38px; height: 38px; }
+      .main-nav { display: none; }
+      .location-pill { font-size: 0; padding: 12px; }
+      .location-pill .dot { width: 9px; height: 9px; }
+      .hero { padding-top: 18px; }
+      .hero-card { border-radius: 22px; }
+      .hero-text { padding: 31px 25px 8px; }
+      .hero h1 { font-size: 44px; margin: 18px 0 16px; }
+      .hero-copy { font-size: 13px; }
+      .hero-art { min-height: 225px; }
+      .art-circle { width: 295px; height: 295px; right: 9%; }
+      .art-card { width: 136px; height: 170px; font-size: 61px; top: 20px; left: 18%; }
+      .art-card-secondary { width: 135px; height: 174px; font-size: 62px; top: 29px; right: 16%; }
+      .art-sticker { width: 72px; height: 72px; right: 5%; font-size: 12px; }
+      .art-sticker b { font-size: 8px; }
+      .benefits { grid-template-columns: 1fr 1fr; gap: 12px; padding-bottom: 35px; }
+      .benefit { justify-content: start; font-size: 10px; gap: 7px; }
+      .benefit:last-child { grid-column: 1 / -1; }
+      .section-head { align-items: center; }
+      .section-head h2 { font-size: 36px; }
+      .count-bubble { padding: 9px 11px; font-size: 10px; }
+      .filter-panel { padding: 16px; }
+      .filter-top { grid-template-columns: 1fr; }
+      .search-field { grid-column: auto; }
+      .filter-bottom { align-items: flex-start; }
+      .price-fields { width: 100%; gap: 8px; }
+      .price-caption { width: 100%; }
+      .price-box { flex: 1; }
+      .price-box input { width: 100%; }
+      .products-grid { grid-template-columns: 1fr; gap: 16px; }
+      .product-art { height: 232px; }
+      .product-body { padding: 20px; }
+      .footer-inner { flex-direction: column; gap: 7px; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="#inicio" aria-label="Catálogo Smart, ir al inicio">
+        <span class="brand-mark" aria-hidden="true">cs</span>
+        <span>Catálogo <span>Smart.</span></span>
+      </a>
+      <div class="header-right">
+        <nav class="main-nav" aria-label="Navegación principal">
+          <a href="#inicio">Inicio</a>
+          <a href="#catalogo">Explorar catálogo</a>
+        </nav>
+        <span class="location-pill" title="Santa Cruz de la Sierra, Bolivia"><span class="dot" aria-hidden="true"></span> SANTA CRUZ · BO</span>
+      </div>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <div class="shell">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-card">
+          <div class="hero-text">
+            <span class="eyebrow">ESTILO CON PERSONALIDAD</span>
+            <h1 id="hero-title">Tu estilo, <em>tu manera</em> de brillar.</h1>
+            <p class="hero-copy">Descubrí prendas y accesorios para cada ocasión. Explorá nuestro catálogo, encontrá lo que te gusta y elegí a tu ritmo.</p>
+            <a href="#catalogo" class="hero-link">Explorar colección <svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+          </div>
+          <div class="hero-art" aria-hidden="true">
+            <div class="art-circle"></div><div class="art-outline"></div>
+            <div class="art-card">👗</div><div class="art-card-secondary">🧥</div>
+            <div class="art-sticker"><b>LOOKS</b>con onda<span>✳</span></div>
+          </div>
+        </div>
+      </section>
+
+      <div class="benefits" aria-label="Características del catálogo">
+        <div class="benefit"><span class="benefit-icon" aria-hidden="true"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7h18v13H3zM7 7V5a5 5 0 0 1 10 0v2"/></svg></span> Prendas para tu día a día</div>
+        <div class="benefit"><span class="benefit-icon" aria-hidden="true"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg></span> Encontrá lo que buscás</div>
+        <div class="benefit"><span class="benefit-icon" aria-hidden="true"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3c4 2 7 5 7 10a7 7 0 0 1-14 0c0-5 3-8 7-10Z"/><path d="M9 13h6"/></svg></span> Precios claros en bolivianos</div>
+      </div>
+
+      <section id="catalogo" class="catalog-section" aria-labelledby="catalog-title">
+        <div class="section-head">
+          <div><div class="kicker">ENCONTRÁ TU FAVORITO</div><h2 id="catalog-title">Nuestra colección</h2></div>
+          <span class="count-bubble" id="count-bubble">Cargando...</span>
+        </div>
+
+        <div id="notice" class="notice" role="status" aria-live="polite">
+          <svg class="notice-icon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8v.01"/></svg>
+          <div id="notice-content"></div>
+        </div>
+
+        <div class="filter-panel" role="search" aria-label="Buscar y filtrar productos">
+          <div class="filter-top">
+            <label class="field search-field" for="search"><span class="field-title">¿Qué estás buscando?</span>
+              <span class="input-wrap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg><input id="search" type="search" placeholder="Ej. vestido, camisa, jeans..." autocomplete="off"></span>
+            </label>
+            <label class="field" for="category"><span class="field-title">Categoría</span><select id="category"><option value="">Todas las categorías</option></select></label>
+            <label class="field" for="sort"><span class="field-title">Ordenar por</span><select id="sort"><option value="name-asc">Nombre: A a Z</option><option value="name-desc">Nombre: Z a A</option><option value="price-asc">Precio: menor a mayor</option><option value="price-desc">Precio: mayor a menor</option></select></label>
+          </div>
+          <div class="filter-bottom">
+            <div class="price-fields" aria-label="Rango de precios en bolivianos">
+              <span class="price-caption">Rango de precio</span>
+              <label class="price-box" for="min-price"><span>Bs</span><input id="min-price" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Mínimo" aria-label="Precio mínimo en bolivianos"></label>
+              <span class="price-separator" aria-hidden="true">—</span>
+              <label class="price-box" for="max-price"><span>Bs</span><input id="max-price" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Máximo" aria-label="Precio máximo en bolivianos"></label>
+            </div>
+            <button id="clear" class="clear-button" type="button"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 12a9 9 0 1 1 3 6.7M3 18v-6h6"/></svg> Limpiar filtros</button>
+          </div>
+        </div>
+
+        <div class="results-row"><div class="results-text" id="results-text" aria-live="polite">Preparando el catálogo...</div><button class="reload-button" id="reload" type="button"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20 6v6h-6M4 18v-6h6M5.6 9a7 7 0 0 1 12.2-2L20 12M4 12l2.2 5a7 7 0 0 0 12.2-2"/></svg> Actualizar</button></div>
+        <div class="products-grid" id="products" aria-live="polite" aria-busy="true"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer"><div class="shell footer-inner"><div><strong>Catálogo Smart.</strong> · Tu estilo, tus reglas.</div><div>Hecho para tiendas de Santa Cruz de la Sierra, Bolivia · Precios en Bs.</div></div></footer>
+
+  <!-- Orden importante: configuración → librería supabase-js v2 → aplicación -->
+  <script src="./config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    (() => {
+      "use strict";
+
+      const $ = (selector) => document.querySelector(selector);
+      const elements = {
+        products: $("#products"), search: $("#search"), category: $("#category"),
+        sort: $("#sort"), min: $("#min-price"), max: $("#max-price"),
+        clear: $("#clear"), reload: $("#reload"), results: $("#results-text"),
+        count: $("#count-bubble"), notice: $("#notice"), noticeContent: $("#notice-content")
+      };
+
+      // Productos ficticios solamente para mostrar el diseño sin configurar Supabase.
+      // El producto inactivo NO aparecerá en el catálogo de ejemplo.
+      const demoProducts = [
+        {id: 1, nombre: "Vestido Aurora", categoria: "Vestidos", precio_bs: 189, descripcion: "Un vestido fresco y ligero para tus mejores días.", activo: true},
+        {id: 2, nombre: "Camisa Essential", categoria: "Camisas", precio_bs: 135, descripcion: "Un básico cómodo y versátil para cualquier plan.", activo: true},
+        {id: 3, nombre: "Jean Urbano", categoria: "Jeans", precio_bs: 229, descripcion: "Denim de estilo casual para combinar a tu manera.", activo: true},
+        {id: 4, nombre: "Blusa Lía", categoria: "Blusas", precio_bs: 119.5, descripcion: "Detalles delicados con una silueta moderna.", activo: true},
+        {id: 5, nombre: "Tenis Paseo", categoria: "Calzados", precio_bs: 275, descripcion: "Diseño cómodo para acompañarte todo el día.", activo: true},
+        {id: 6, nombre: "Bolso Siena", categoria: "Accesorios", precio_bs: 159, descripcion: "El toque perfecto para completar tu look.", activo: true},
+        {id: 7, nombre: "Chaqueta Oculta", categoria: "Chaquetas", precio_bs: 315, descripcion: "Este artículo no debe mostrarse.", activo: false}
+      ];
+
+      const locale = new Intl.NumberFormat("es-BO", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      const state = { products: [], mode: "demo", client: null, loading: false, error: false };
+
+      function money(value) {
+        const amount = Number(value);
+        return Number.isFinite(amount) ? `Bs ${locale.format(amount)}` : "Precio a consultar";
+      }
+      function normalized(value) {
+        return String(value ?? "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase("es").trim();
+      }
+      function palette(category) {
+        const options = [
+          {name: /vestido|falda|enterizo/, emoji: "👗", color: "#f2ddd3"},
+          {name: /camisa|polera|remera|polo|camiseta/, emoji: "👕", color: "#dfe9ed"},
+          {name: /jean|pantalon|short/, emoji: "👖", color: "#d4dfea"},
+          {name: /blusa|top/, emoji: "👚", color: "#f1e3e5"},
+          {name: /calzado|zapato|tenis|zapatilla|sandalia|bota/, emoji: "👟", color: "#e8e4d6"},
+          {name: /accesorio|cartera|bolso|mochila/, emoji: "👜", color: "#e9dfcf"},
+          {name: /chaqueta|abrigo|chompa|sweater/, emoji: "🧥", color: "#d9e5d5"},
+          {name: /gorra|sombrero/, emoji: "🧢", color: "#e1e4ed"}
+        ];
+        return options.find((entry) => entry.name.test(normalized(category))) || {emoji: "✳️", color: "#e5eadf"};
+      }
+      function showNotice(title, description) {
+        elements.noticeContent.replaceChildren();
+        const strong = document.createElement("strong");
+        strong.textContent = title;
+        const paragraph = document.createElement("span");
+        paragraph.textContent = description;
+        elements.noticeContent.append(strong, paragraph);
+        elements.notice.classList.add("visible");
+      }
+      function hideNotice() { elements.notice.classList.remove("visible"); }
+      function showSkeletons() {
+        elements.products.replaceChildren();
+        for (let i = 0; i < 6; i++) {
+          const skeleton = document.createElement("div");
+          skeleton.className = "skeleton";
+          skeleton.setAttribute("aria-hidden", "true");
+          skeleton.innerHTML = '<div class="skeleton-art"></div><div class="skeleton-body"><div class="skeleton-line wide"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>';
+          elements.products.append(skeleton);
+        }
+        elements.products.setAttribute("aria-busy", "true");
+        elements.results.textContent = "Cargando productos...";
+        elements.count.textContent = "Cargando...";
+      }
+      function displayMessage(icon, title, description) {
+        const wrapper = document.createElement("div");
+        wrapper.className = "message-card";
+        const symbol = document.createElement("div");
+        symbol.className = "message-icon";
+        symbol.setAttribute("aria-hidden", "true");
+        symbol.textContent = icon;
+        const heading = document.createElement("h3");
+        heading.textContent = title;
+        const detail = document.createElement("p");
+        detail.textContent = description;
+        wrapper.append(symbol, heading, detail);
+        elements.products.replaceChildren(wrapper);
+      }
+      function productCard(product) {
+        // Los datos de Supabase se insertan con textContent, evitando HTML inyectado.
+        const card = document.createElement("article");
+        card.className = "product-card";
+        const art = document.createElement("div");
+        art.className = "product-art";
+        const theme = palette(product.categoria);
+        art.style.setProperty("--product-color", theme.color);
+        const tag = document.createElement("span");
+        tag.className = "product-tag";
+        tag.textContent = product.categoria || "Moda";
+        const emoji = document.createElement("span");
+        emoji.className = "product-emoji";
+        emoji.textContent = theme.emoji;
+        emoji.setAttribute("aria-hidden", "true");
+        art.append(tag, emoji);
+        const body = document.createElement("div");
+        body.className = "product-body";
+        const title = document.createElement("h3");
+        title.className = "product-name";
+        title.textContent = product.nombre || "Producto sin nombre";
+        const desc = document.createElement("p");
+        desc.className = "product-description";
+        desc.textContent = product.descripcion || "Descubrí esta prenda en nuestra colección.";
+        const bottom = document.createElement("div");
+        bottom.className = "product-bottom";
+        const priceWrapper = document.createElement("div");
+        const priceLabel = document.createElement("span");
+        priceLabel.className = "price-label";
+        priceLabel.textContent = "Precio";
+        const price = document.createElement("strong");
+        price.className = "product-price";
+        price.textContent = money(product.precio_bs);
+        priceWrapper.append(priceLabel, price);
+        const available = document.createElement("span");
+        available.className = "available-pill";
+        available.textContent = "En catálogo";
+        bottom.append(priceWrapper, available);
+        body.append(title, desc, bottom);
+        card.append(art, body);
+        return card;
+      }
+      function updateCategories() {
+        const selected = elements.category.value;
+        const categories = [...new Set(state.products.map((p) => String(p.categoria || "").trim()).filter(Boolean))]
+          .sort((a, b) => a.localeCompare(b, "es", {sensitivity: "base"}));
+        elements.category.replaceChildren(new Option("Todas las categorías", ""));
+        categories.forEach((value) => elements.category.add(new Option(value, value)));
+        if (categories.includes(selected)) elements.category.value = selected;
+      }
+      function filters() {
+        const search = normalized(elements.search.value);
+        const category = elements.category.value;
+        const min = elements.min.value.trim() === "" ? null : Number(elements.min.value);
+        const max = elements.max.value.trim() === "" ? null : Number(elements.max.value);
+        const products = state.products.filter((p) => {
+          if (p.activo !== true) return false;
+          if (category && p.categoria !== category) return false;
+          if (search && !normalized(`${p.nombre} ${p.categoria} ${p.descripcion}`).includes(search)) return false;
+          const price = Number(p.precio_bs);
+          if (min !== null && (!Number.isFinite(min) || price < min)) return false;
+          if (max !== null && (!Number.isFinite(max) || price > max)) return false;
+          return true;
+        });
+        const collator = new Intl.Collator("es", {sensitivity: "base", numeric: true});
+        const sort = elements.sort.value;
+        products.sort((a, b) => {
+          if (sort === "price-asc") return Number(a.precio_bs) - Number(b.precio_bs);
+          if (sort === "price-desc") return Number(b.precio_bs) - Number(a.precio_bs);
+          const nameOrder = collator.compare(a.nombre || "", b.nombre || "");
+          return sort === "name-desc" ? -nameOrder : nameOrder;
+        });
+        return products;
+      }
+      function render() {
+        if (state.error || state.loading) return;
+        const found = filters();
+        elements.products.replaceChildren();
+        elements.products.setAttribute("aria-busy", "false");
+        const total = state.products.length;
+        elements.count.textContent = `${total} ${total === 1 ? "producto" : "productos"}`;
+        elements.results.replaceChildren();
+        const strong = document.createElement("strong");
+        strong.textContent = String(found.length);
+        elements.results.append(strong, document.createTextNode(` ${found.length === 1 ? "producto encontrado" : "productos encontrados"}${state.mode === "demo" ? " · vista de ejemplo" : " · catálogo actualizado"}`));
+        if (found.length === 0) {
+          displayMessage("🔎", "Sin resultados por aquí", total ? "Probá con otra búsqueda o cambiá los filtros de categoría y precio." : "Todavía no hay productos activos para mostrar en esta tienda.");
+          return;
+        }
+        const fragment = document.createDocumentFragment();
+        found.forEach((product) => fragment.append(productCard(product)));
+        elements.products.append(fragment);
+      }
+      function demoMode() {
+        state.mode = "demo";
+        state.products = demoProducts.filter((p) => p.activo === true);
+        state.error = false;
+        showNotice("Vista de demostración", "Estos productos son ejemplos, no datos reales. Para mostrar tu tienda, completá SUPABASE_URL y SUPABASE_PUBLISHABLE_KEY en config.js, guardá los cambios y recargá la página.");
+        updateCategories();
+        render();
+      }
+      function validateBaseUrl(text) {
+        try {
+          const parsed = new URL(text);
+          return parsed.protocol === "https:" && parsed.pathname === "/" && !parsed.search && !parsed.hash;
+        } catch { return false; }
+      }
+      async function loadProducts() {
+        if (state.loading || !state.client) return;
+        state.loading = true;
+        state.error = false;
+        elements.reload.disabled = true;
+        showSkeletons();
+        try {
+          // IMPORTANTE: también proteger la tabla con RLS en Supabase.
+          const {data, error} = await state.client
+            .from("productos_demo")
+            .select("id,nombre,categoria,precio_bs,descripcion,activo")
+            .eq("activo", true)
+            .order("nombre", {ascending: true});
+          if (error) throw error;
+          state.products = Array.isArray(data) ? data.filter((p) => p.activo === true) : [];
+          hideNotice();
+          updateCategories();
+        } catch (error) {
+          console.error("Catálogo Smart — consulta a Supabase:", error);
+          state.error = true;
+          state.products = [];
+          showNotice("No se pudo cargar el catálogo", "Comprobá la URL base del proyecto (sin /rest/v1/), la clave pública, el nombre productos_demo y la política RLS de lectura para productos activos.");
+          elements.count.textContent = "No disponible";
+          elements.results.textContent = "No se pudieron obtener productos.";
+          displayMessage("⚠️", "No pudimos conectar con la tienda", "Revisá la configuración de Supabase y presioná Actualizar. No se muestran productos ficticios cuando la conexión falla.");
+          elements.products.setAttribute("aria-busy", "false");
+        } finally {
+          state.loading = false;
+          elements.reload.disabled = false;
+          if (!state.error) render();
+        }
+      }
+      function start() {
+        const config = window.CATALOGO_CONFIG || {};
+        const url = String(config.SUPABASE_URL || "").trim();
+        const key = String(config.SUPABASE_PUBLISHABLE_KEY || "").trim();
+        if (!url || !key) { demoMode(); return; }
+        if (!validateBaseUrl(url)) {
+          state.error = true;
+          state.products = [];
+          showNotice("URL de Supabase incorrecta", "En config.js usá la URL del proyecto, por ejemplo https://mi-proyecto.supabase.co (sin /rest/v1/ al final).");
+          elements.count.textContent = "Configurar";
+          elements.results.textContent = "Corregí la URL para continuar.";
+          displayMessage("⚠️", "Revisá la URL de Supabase", "Tu URL debe empezar con https:// y no incluir /rest/v1/ ni otras rutas.");
+          elements.products.setAttribute("aria-busy", "false");
+          return;
+        }
+        if (!window.supabase || typeof window.supabase.createClient !== "function") {
+          state.error = true;
+          showNotice("No se pudo cargar supabase-js", "Verificá la conexión a Internet y que el CDN de supabase-js v2 esté disponible.");
+          elements.count.textContent = "No disponible";
+          elements.results.textContent = "No se cargó la librería de Supabase.";
+          displayMessage("⚠️", "No se cargó la conexión", "Actualizá la página con conexión a Internet.");
+          elements.products.setAttribute("aria-busy", "false");
+          return;
+        }
+        try {
+          state.client = window.supabase.createClient(url, key, {
+            auth: {persistSession: false, autoRefreshToken: false, detectSessionInUrl: false}
+          });
+          state.mode = "live";
+          loadProducts();
+        } catch (error) {
+          console.error("Catálogo Smart — configuración:", error);
+          state.error = true;
+          showNotice("Error de configuración", "Comprobá que pegaste la clave pública de Supabase, no una clave secreta ni una URL de la API REST.");
+          elements.count.textContent = "Configurar";
+          elements.results.textContent = "Error de configuración.";
+          displayMessage("⚠️", "La configuración necesita revisión", "Revisá config.js y recargá la página.");
+          elements.products.setAttribute("aria-busy", "false");
+        }
+      }
+
+      [elements.search, elements.category, elements.sort, elements.min, elements.max].forEach((element) => {
+        element.addEventListener(element.tagName === "SELECT" ? "change" : "input", render);
+      });
+      elements.clear.addEventListener("click", () => {
+        elements.search.value = "";
+        elements.category.value = "";
+        elements.sort.value = "name-asc";
+        elements.min.value = "";
+        elements.max.value = "";
+        render();
+        elements.search.focus();
+      });
+      elements.reload.addEventListener("click", () => state.mode === "live" ? loadProducts() : render());
+      start();
+    })();
+  </script>
+</body>
+</html>
